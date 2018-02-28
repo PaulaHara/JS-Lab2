@@ -100,10 +100,12 @@ function swapEnds(nums){
 function unlucky1(nums){
     let size = nums.length;
     
-    if(nums.length > 1){
+    if(nums.length > 2){
         if((nums[0] == 1 && nums[1] == 3) || nums[1] == 1 && nums[2] == 3 || (nums[size-2] == 1 && nums[size-1] == 3)){
             return true;
         }
+    }else if(nums.length == 2 && nums[0] == 1 && nums[1] == 3){
+        return true;
     }
     
     return false;
@@ -201,16 +203,19 @@ function twoTwo(nums){
 // shiftLeft([1, 2]) → [2, 1]
 // shiftLeft([1]) → [1]
 function shiftLeft(nums){
-    let firstNum = nums[0];
-    let numbers = [];
-    
-    if(nums.length > 1){
-        numbers = nums.splice(1, nums.length-1);
+    if(nums.length > 0){
+        let firstNum = nums[0];
+        let numbers = [];
+
+        if(nums.length > 1){
+            numbers = nums.splice(1, nums.length-1);
+        }
+
+        numbers.push(firstNum);
+
+        return numbers;
     }
-    
-    numbers.push(firstNum);
-    
-    return numbers;
+    return "Empty array!";
 }
 
 // Exercise 13
@@ -267,23 +272,26 @@ function fizzBuzz(start, end){
 // countClumps([1, 1, 2, 1, 1]) → 2
 // countClumps([1, 1, 1, 1, 1]) → 1
 function countClumps(nums){
-    let prevNumber = nums[0];
-    let sameNumbers = false;
     let count = 0;
     
-    for(let index = 1; index < nums.length; index++){
-        if(prevNumber == nums[index]){
-            sameNumbers = true;
-        }
-        
-        if(sameNumbers){
-            if(prevNumber != nums[index] || index == nums.length-1){
-                count++;
-                sameNumbers = false;
+    if(nums.length > 0){
+        let prevNumber = nums[0];
+        let sameNumbers = false;
+
+        for(let index = 1; index < nums.length; index++){
+            if(prevNumber == nums[index]){
+                sameNumbers = true;
             }
+
+            if(sameNumbers){
+                if(prevNumber != nums[index] || index == nums.length-1){
+                    count++;
+                    sameNumbers = false;
+                }
+            }
+
+            prevNumber = nums[index];
         }
-        
-        prevNumber = nums[index];
     }
     
     return count;
